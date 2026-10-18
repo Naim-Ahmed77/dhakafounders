@@ -2,24 +2,47 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --font-heading: 'Plus Jakarta Sans', sans-serif;
-  --font-body: 'Inter', sans-serif;
+@layer base {
+  :root {
+    --brand-primary: #1D70B8;
+    --brand-primary-hover: #155A94;
+    --brand-secondary: #DCEEFA;
+    --brand-dark: #334155;
+    --brand-muted: #64748B;
+    --brand-bg: #F8FAFC;
+    --brand-radial: #EBF4FB;
+    --font-heading: var(--font-heading, 'Plus Jakarta Sans', sans-serif);
+    --font-body: var(--font-body, 'Inter', sans-serif);
+  }
+
+  body {
+    color: var(--brand-dark);
+    background-color: var(--brand-bg);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    letter-spacing: -0.025em;
+  }
 }
 
-body {
-  color: #334155;
-  background-color: #F8FAFC;
-  font-family: var(--font-body);
+/* Glassmorphism utility */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(226, 232, 240, 0.8);
 }
 
-/* Subtle dot grid pattern overlay inspired by Dhaka Founders brand DNA */
+/* Dhaka Founders Brand Grid & Glow overlays */
 .bg-dot-pattern {
   background-image: radial-gradient(#CBD5E1 1px, transparent 1px);
   background-size: 24px 24px;
 }
 
-/* Radial light glow gradient */
 .bg-radial-glow {
-  background: radial-gradient(circle at 50% 20%, rgba(220, 238, 250, 0.7) 0%, rgba(248, 250, 252, 0) 70%);
+  background: radial-gradient(circle at 50% 15%, rgba(220, 238, 250, 0.8) 0%, rgba(248, 250, 252, 0) 70%);
 }
