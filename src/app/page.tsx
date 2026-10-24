@@ -1,8 +1,30 @@
 import React from "react";
 import Link from "next/link";
 import { ArrowRight, Sparkles, Building2, Users, Rocket, TrendingUp, ShieldCheck } from "lucide-react";
+import SupabaseConnectionCheck from "@/components/SupabaseConnectionCheck";
+import { createClient } from "@/utils/supabase/server";
+import { cookies } from "next/headers";
 
-export default function Home() {
+// Verification function to test Supabase connection without querying empty tables
+async function verifySupabaseConnection() {
+  try {
+    const cookieStore = await cookies();
+    const supabase = createClient(cookieStore);
+    const { data, error } = await supabase.auth.getSession();
+    if (!error) {
+      console.log("⚡ [Dhaka Founders] Supabase connection verified successfully via server! (Auth service is active)");
+    } else {
+      console.warn("⚠️ [Dhaka Founders] Supabase verification notice:", error.message);
+    }
+  } catch (err) {
+    console.error("❌ [Dhaka Founders] Supabase verification error:", err);
+  }
+}
+
+export const dynamic = "force-dynamic";
+
+export default async function Home() {
+  await verifySupabaseConnection();
   const featuredStartups = [
     {
       name: "Pathao",
@@ -40,6 +62,7 @@ export default function Home() {
 
   return (
     <div className="relative overflow-hidden">
+      <SupabaseConnectionCheck />
       {/* Background Radial Glow & Dot Overlay */}
       <div className="absolute inset-0 bg-dot-pattern opacity-60 pointer-events-none" />
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-[600px] bg-radial-glow pointer-events-none" />
